@@ -8,23 +8,22 @@ const FeatureList = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Luramas Documentation is designed from the ground up to get you up and running quickly. 
+        Find the guides and API references you need with minimal effort.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Customizable',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Luramas allows you to add any custom bytecode for decompilation.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Modular',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
