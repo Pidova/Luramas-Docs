@@ -1,2 +1,2 @@
 # Luramas-Docs
-Documentation for the retargetable decompiler Luramas
+Documentation for the retargetable decompiler framework Luramas
