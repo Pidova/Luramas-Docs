@@ -24,6 +24,11 @@ jobs:
       - name: Install Project Dependencies
         run: npm ci
 
+      - name: Sanitize Unsafe Angle Brackets for MDX
+        run: |
+          echo "Scanning docs for unescaped angle brackets"
+          find docs/ -type f \( -name "*.md" -o -name "*.mdx" \) -print0 | xargs -0 sed -i -E 's/<([^>a-zA-Z0-9_\/ "=-]|$)/\&lt;\1/g'
+          
       - name: Compile Static Site Files
         run: npm run build
 
