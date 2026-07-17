@@ -1,5 +1,18 @@
+---
+id: isa
+title: Instruction Set Architecture
+sidebar_position: 1
+---
 
 # Instruction Set Architecture (ISA): Assembly to IL Translation
+
+The **IL** is the architecture-independent instruction set every target lifts into. 
+A lifter never emits x86 or Lua opcodes; it emits these, and everything downstream: the IR, every pass, every emitter - only ever sees this. 
+That is what lets one pipeline serve unrelated targets: allow a new front-end to produce these opcodes and it inherits the whole optimizer.
+
+This page is the opcode reference. 
+It defines the operand notation, the operand sizes, and then every opcode with its meaning and operand layout. 
+For how a lifter actually emits them through the DSL, see **[Writing a Lifter](Lifting/writing-lifters.md)**.
 
 # Opcode Table Reference
 
@@ -25,7 +38,7 @@ This legend defines the syntax and notation used for opcodes, hints, and operand
 
 ### Operand Sizes
 
-The operand size corresponds to the standard C system types:
+The operand size corresponds to the standard C types:
 
 | Notation | Actual Size | Description |
 | ------------------  | ------- | --------------------- |
@@ -54,8 +67,8 @@ The operand size corresponds to the standard C system types:
 |OP_POW               |Arith/Bitwise (^)                                                              |Dest(Register), Source(Register), Value(Register)                                                                                |
 |OP_AND               |Arith/Bitwise (&)                                                              |Dest(Register), Source(Register), Value(Register)                                                                                |
 |OP_XOR               |Arith/Bitwise (~)                                                              |Dest(Register), Source(Register), Value(Register)                                                                                |
-|OP_SHL               |Arith/Bitwise (<<)                                                             |Dest(Register), Source(Register), Value(Register)                                                                                |
-|OP_SHR               |Arith/Bitwise (>>)                                                             |Dest(Register), Source(Register), Value(Register)                                                                                |
+|OP_SHL               |Arith/Bitwise (`<<`)                                                             |Dest(Register), Source(Register), Value(Register)                                                                                |
+|OP_SHR               |Arith/Bitwise (`>>`)                                                             |Dest(Register), Source(Register), Value(Register)                                                                                |
 |OP_IDIV              |Arith/Bitwise (//)                                                             |Dest(Register), Source(Register), Value(Register)                                                                                |
 |OP_OR                |Arith/Bitwise (&#124;)                                                              |Dest(Register), Source(Register), Value(Register)                                                                                |
 |OP_ADDK              |Arith/Bitwise Kvalue (+)                                                       |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
@@ -66,8 +79,8 @@ The operand size corresponds to the standard C system types:
 |OP_POWK              |Arith/Bitwise Kvalue (^)                                                       |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
 |OP_ANDK              |Arith/Bitwise Kvalue (&)                                                       |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
 |OP_XORK              |Arith/Bitwise Kvalue (~)                                                       |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
-|OP_SHLK              |Arith/Bitwise Kvalue (<<)                                                      |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
-|OP_SHRK              |Arith/Bitwise Kvalue (>>)                                                      |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
+|OP_SHLK              |Arith/Bitwise Kvalue (`<<`)                                                      |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
+|OP_SHRK              |Arith/Bitwise Kvalue (`>>`)                                                      |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
 |OP_IDIVK             |Arith/Bitwise Kvalue (//)                                                      |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
 |OP_ORK               |Arith/Bitwise Kvalue (&#124;)                                                       |Dest(Register), Source(Register), Value(Kvalue)                                                                                  |
 |OP_ADDN              |Arith/Bitwise Integer (+)                                                      |Dest(Register), Source(Register), Value(Integer)                                                                                 |
@@ -78,8 +91,8 @@ The operand size corresponds to the standard C system types:
 |OP_POWN              |Arith/Bitwise Integer (^)                                                      |Dest(Register), Source(Register), Value(Integer)                                                                                 |
 |OP_ANDN              |Arith/Bitwise Integer (&)                                                      |Dest(Register), Source(Register), Value(Integer)                                                                                 |
 |OP_XORN              |Arith/Bitwise Integer (~)                                                      |Dest(Register), Source(Register), Value(Integer)                                                                                 |
-|OP_SHLN              |Arith/Bitwise Integer (<<)                                                     |Dest(Register), Source(Register), Value(Integer)                                                                                 |
-|OP_SHRN              |Arith/Bitwise Integer (>>)                                                     |Dest(Register), Source(Register), Value(Integer)                                                                                 |
+|OP_SHLN              |Arith/Bitwise Integer (`<<`)                                                     |Dest(Register), Source(Register), Value(Integer)                                                                                 |
+|OP_SHRN              |Arith/Bitwise Integer (`>>`)                                                     |Dest(Register), Source(Register), Value(Integer)                                                                                 |
 |OP_IDIVN             |Arith/Bitwise Integer (//)                                                     |Dest(Register), Source(Register), Value(Integer)                                                                                 |
 |OP_ORN               |Arith/Bitwise Integer (&#124;)                                                      |Dest(Register), Source(Register), Value(Integer)                                                                                 |
 |OP_LEN               |Unary (#)                                                                      |Dest(Register), Source(Register)                                                                                                 |
@@ -108,18 +121,18 @@ The operand size corresponds to the standard C system types:
 |OP_JUMPIFNOT         |Jump if not cmp flag                                                           |Jump address(jump)                                                                                                               |
 |OP_JUMPIFEQUAL       |Jump if == comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
 |OP_JUMPIFNOTEQUAL    |Jump if != comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
-|OP_JUMPIFLESS        |Jump if < comparative to cmp flag                                              |Jump address(jump)                                                                                                               |
-|OP_JUMPIFLESSEQUAL   |Jump if <= comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
-|OP_JUMPIFGREATER     |Jump if > comparative to cmp flag                                              |Jump address(jump)                                                                                                               |
-|OP_JUMPIFGREATEREQUAL|Jump if >= comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
+|OP_JUMPIFLESS        |Jump if `<` comparative to cmp flag                                              |Jump address(jump)                                                                                                               |
+|OP_JUMPIFLESSEQUAL   |Jump if `<=` comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
+|OP_JUMPIFGREATER     |Jump if `>` comparative to cmp flag                                              |Jump address(jump)                                                                                                               |
+|OP_JUMPIFGREATEREQUAL|Jump if `>=` comparative to cmp flag                                             |Jump address(jump)                                                                                                               |
 |OP_SETIF             |Set true or false if cmp flag                                                  |Dest(Register)                                                                                                                   |
 |OP_SETIFNOT          |Set true or false if not cmp flag                                              |Dest(Register)                                                                                                                   |
 |OP_SETIFEQUAL        |Set true or false if == comparative to cmp flag                                |Dest(Register)                                                                                                                   |
 |OP_SETIFNOTEQUAL     |Set true or false if != comparative to cmp flag                                |Dest(Register)                                                                                                                   |
-|OP_SETIFLESS         |Set true or false if < comparative to cmp flag                                 |Dest(Register)                                                                                                                   |
-|OP_SETIFLESSEQUAL    |Set true or false if <= comparative to cmp flag                                |Dest(Register)                                                                                                                   |
-|OP_SETIFGREATER      |Set true or false if > comparative to cmp flag                                 |Dest(Register)                                                                                                                   |
-|OP_SETIFGREATEREQUAL |Set true or false if >= comparative to cmp flag                                |Dest(Register)                                                                                                                   |
+|OP_SETIFLESS         |Set true or false if `<` comparative to cmp flag                                 |Dest(Register)                                                                                                                   |
+|OP_SETIFLESSEQUAL    |Set true or false if `<=` comparative to cmp flag                                |Dest(Register)                                                                                                                   |
+|OP_SETIFGREATER      |Set true or false if `>` comparative to cmp flag                                 |Dest(Register)                                                                                                                   |
+|OP_SETIFGREATEREQUAL |Set true or false if `>=` comparative to cmp flag                                |Dest(Register)                                                                                                                   |
 |OP_SETUPVALUE        |Set Upvalue                                                                    |Source(Register), Upvalue ID(UpvalueID)                                                                                          |
 |OP_GETUPVALUE        |Get Upvalue                                                                    |Dest(Register), Upvalue ID(UpvalueID)                                                                                            |
 |OP_DESTROYUPVALUES   |Destroy all upvalues with target                                               |None                                                                                                                             |
@@ -159,7 +172,7 @@ The operand size corresponds to the standard C system types:
 |OP_POPTOPSTACK       |Pops top from given stack                                                      |Stack pointer(Register)                                                                                                          |
 |OP_CLOGIC_AND        |Performs condition logic if sources are truthy puts result in dest             |Dest(Register), Source(Register), Source(Register)                                                                               |
 |OP_CLOGIC_OR         |Performs condition logic if either sources are truthy puts result in dest      |Dest(Register), Source(Register), Source(Register)                                                                               |
-|OP_PEND              |Psuedo-instruction (Pending analysis)                                          |None                                                                                                                             |
+|OP_PEND              |Psuedo-instruction (Pending analysis)                                          |Userdata(Register), * Userdata(Val), * Userdata(Val), * Userdata(Val)                                                            |
 |OP_MARK              |Psuedo-instruction (Marks spot)                                                |None                                                                                                                             |
 |OP_MOBJ_CAST         |Casts register to object from object map                                       |Dest(Register), Source(Register), Index(Val)                                                                                     |
 |OP_NCTOR_MOBJ        |See if source is object from object map if not construct                       |Dest(Register), Source(Register), Index(Val)                                                                                     |

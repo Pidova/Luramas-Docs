@@ -1,0 +1,8 @@
+{
+  "label": "Intermediate Language",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "IL: the architecture-independent instruction set every target lifts into, and writing lifters."
+  }
+}

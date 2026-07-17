@@ -49,7 +49,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Pidova/Luramas-Docs/edit/main/',
         },
         blog: false,
         theme: {
@@ -58,6 +58,10 @@ const config = {
       }),
     ],
   ],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -116,5 +120,6 @@ const config = {
       },
     }),
 };
+
 
 export default config;

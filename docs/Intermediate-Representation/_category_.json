@@ -1,0 +1,8 @@
+{
+  "label": "Intermediate Representation",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "IR: The pass pipeline that turns raw lifted code into something that reads like source."
+  }
+}

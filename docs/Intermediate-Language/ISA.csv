@@ -121,7 +121,7 @@ OP_STACKPOP,Pops register contents from the given stack,"Stack ID(VAL), Source(R
 OP_POPTOPSTACK,Pops top from given stack,Stack pointer(Register)
 OP_CLOGIC_AND,Performs condition logic if sources are truthy puts result in dest,"Dest(Register), Source(Register), Source(Register)"
 OP_CLOGIC_OR,Performs condition logic if either sources are truthy puts result in dest,"Dest(Register), Source(Register), Source(Register)"
-OP_PEND,Psuedo-instruction (Pending analysis),None
+OP_PEND,Psuedo-instruction (Pending analysis),"Userdata(Register), * Userdata(Val), * Userdata(Val), * Userdata(Val) "
 OP_MARK,Psuedo-instruction (Marks spot),None
 OP_MOBJ_CAST,Casts register to object from object map,"Dest(Register), Source(Register), Index(Val)"
 OP_NCTOR_MOBJ,See if source is object from object map if not construct,"Dest(Register), Source(Register), Index(Val)"
