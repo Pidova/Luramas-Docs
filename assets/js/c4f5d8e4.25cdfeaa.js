@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_=self.webpackChunk_||[]).push([["4823"],{7176(r,s,u){u.r(s),u.d(s,{default:()=>t});var a=u(4848);u(6540);var e=u(6347);function t(){return(0,a.jsx)(e.rd,{to:"/Luramas-Docs/docs/intro"})}}}]);
