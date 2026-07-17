@@ -63,7 +63,7 @@ const auto details = profile::analyze::generate_details(mid_res);
 * **extract(buffer)** - hand the built instructions out as a `module-id -> inst_result` map. `dump()` prints them; `clear()` resets the builder.
 * **analyze::generate_details** - produce the `details` the lifter needs: page starts, the instruction data, and external call locations.
 * **analyze::order_of_execution_organized** - the execution order with discrepancies classified (`normal`, `inlaned`, `optional`, `first`), which is exactly what the x86 example walks to feed Capstone one instruction at a time.
-* **analyze::generate_pages** - recover page (function) entries from the stream. Pages are the native function model the IR maintains; see **[Passes -> Schedule](../../Intermediate-Representation/passes.md#chedule)**.
+* **analyze::generate_pages** - recover page (function) entries from the stream. Pages are the native function model the IR maintains; see **[Passes -> Schedule](../../Intermediate-Representation/passes.md#schedule)**.
 
 ## Externals
 

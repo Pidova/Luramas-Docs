@@ -83,4 +83,4 @@ The builder also tracks captured registers and upvalue volatility: the edge case
 
 ## Using SSA in a pass
 
-SSA is used in passes for variable optimizations. Passes rarely rebuild SSA by hand; See **[Helper Functions](./helpers.md#ssa-queries-toolsssa)**.
+SSA is used in passes for variable optimizations. Passes rarely rebuild SSA by hand; See **[Helper Functions](./helpers.md#ssa-toolsssa)**.

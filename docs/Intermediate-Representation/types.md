@@ -52,7 +52,7 @@ The common basic types are pre-made in `ir::types::common`: `i8`, `i16`, `i32`, 
 
 ## How Types are Inferred
 
-Type reconstruction is the last phase of the pass schedule, run only when `fhas_types` is set. It is a small sequence of passes, each building on the last (see **[Passes -> the schedule](./passes.md#Schedule)**):
+Type reconstruction is the last phase of the pass schedule, run only when `fhas_types` is set. It is a small sequence of passes, each building on the last (see **[Passes -> the schedule](./passes.md#schedule)**):
 
 * **definition_flattening** - collapse a value's definitions so each variable has a single coherent definition to type.
 * **definition_inference** - infer each definition's type from how it is produced and used.
