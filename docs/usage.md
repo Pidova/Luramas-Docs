@@ -112,7 +112,7 @@ Luramas -i <input> -t <target> [-b]
 * `-t` selects the target (`x86`, `lua-536`, etc) 
 * `-b` treats the input as bytecode rather than source. Which target actually compiles into the binary is decided at build time by the `LURAMAS_TARGET_*` flags - see **[Building](./building.md#macros)**.
 
-`-help` : Shows you supported architectures and describes usage.
+`-h` : Shows you supported architectures and describes usage.
 
 ## Output Language
 
