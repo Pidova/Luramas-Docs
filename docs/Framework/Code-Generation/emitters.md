@@ -75,4 +75,4 @@ The registry of which languages exist is **generation/common/generate/supported.
 
 Nothing in the IR, the passes, or any lifter changes. 
 The emitter is the only thing that knows the target language exists, exactly as the lifter is the only thing that knows the source architecture exists. 
-See **[Contributing -> adding a target](../contributing.md#adding-a-target)**
+See **[Contributing -> adding a target](../../contributing.md#adding-a-target)**

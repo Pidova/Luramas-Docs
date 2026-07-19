@@ -28,14 +28,14 @@ flowchart LR
 
 A decompile runs through four stages, front to back:
 
-1. **Lifting Assembly** - a per-target disassembler decodes bytes into structured instructions, and a lifter turns each instruction into **IL** with no meaning attached to the original opcode names. See **[Disassemblers](./Intermediate-Language/Lifting/disassemblers)** and **[Writing a Lifter](./Intermediate-Language/Lifting/writing-lifters)**.
-2. **Intermediate Language (IL)** - the shared, architecture-independent instruction set. Every target uses it; see the **[IL Overview](./Intermediate-Language/overview)** and the **[Instruction Set Architecture](./Intermediate-Language/Instruction-Set-Architecture)**. The IL buffer is then bridged to a **[closure tree](./Intermediate-Language/closures)**.
-3. **Intermediate Representation (IR)** - the closure is lifted into the `ir_stat` model, control flow is rebuilt, SSA is constructed, and a fixed schedule of passes simplifies everything. See **[Overview](./Intermediate-Representation/overview)**.
-4. **Code Generation** - the optimized IR is emitted into a real high-level language through a per-language emitter. See **[Emitters](./Code-Generation/emitters)**.
+1. **Lifting Assembly** - a per-target disassembler decodes bytes into structured instructions, and a lifter turns each instruction into **IL** with no meaning attached to the original opcode names. See **[Disassemblers](./Framework/Intermediate-Language/Lifting/disassemblers)** and **[Writing a Lifter](./Framework/Intermediate-Language/Lifting/writing-lifters)**.
+2. **Intermediate Language (IL)** - the shared, architecture-independent instruction set. Every target uses it; see the **[IL Overview](./Framework/Intermediate-Language/overview)** and the **[Instruction Set Architecture](./Framework/Intermediate-Language/Instruction-Set-Architecture)**. The IL buffer is then bridged to a **[closure tree](./Framework/Intermediate-Language/closures)**.
+3. **Intermediate Representation (IR)** - the closure is lifted into the `ir_stat` model, control flow is rebuilt, SSA is constructed, and a fixed schedule of passes simplifies everything. See **[Overview](./Framework/Intermediate-Representation/overview)**.
+4. **Code Generation** - the optimized IR is emitted into a real high-level language through a per-language emitter. See **[Emitters](./Framework/Code-Generation/emitters)**.
 
 ## Where to start
 
-* Want to build it? See **[Building Luramas](./building)**.
-* Want to run a decompile end to end? See **[Usage](./usage)**.
+* Want to build it? See **[Building Luramas](./Framework/building)**.
+* Want to run a decompile end to end? See **[Usage](./Framework/usage)**.
 * Want to contribute a patch? See **[Contributing](./contributing)**.
 * Want the theory behind why it is built this way? The blog series walks through the whole design from scratch: https://pidova.github.io/blog/posts/chapter-0/
