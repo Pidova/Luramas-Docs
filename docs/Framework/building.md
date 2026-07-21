@@ -8,13 +8,13 @@ sidebar_position: 2
 
 This page covers everything needed to compile Luramas from source: the required toolchain, the third-party dependencies and how they are resolved, 
 and the build commands with the compile-time flags that select which targets end up in the binary. 
-**The first build only needs a C++20 compiler, CMake, and Conan.**
+**The first build only needs a C++23 compiler, CMake, and Conan.**
 
 ## Toolchain
 
-Luramas is C++20, built with CMake, and use Conan package manager. 
+Luramas is C++23, built with CMake, and use Conan package manager. 
 
-* **Compiler** - Any C++20 compiler. MSVC needs the WinRT/UWP default libs stripped, which the top-level **CMakeLists.txt** already does through **/NODEFAULTLIB:vccorlib**.
+* **Compiler** - Any C++23 compiler. MSVC needs the WinRT/UWP default libs stripped, which the top-level **CMakeLists.txt** already does through **/NODEFAULTLIB:vccorlib**.
 * **CMake** - 3.16 or newer.
 * **Conan** - Resolves dependencies through **conan_provider.cmake**, marked in as **CMAKE_PROJECT_TOP_LEVEL_INCLUDES**, so the first configure pulls everything.
 
@@ -25,7 +25,7 @@ All third-party libraries are declared in **conanfile.txt** and fetched automati
 * **boost 1.86.0** - Containers everywhere. **unordered_flat_map** / **unordered_flat_set** are the default types across the framework.
 * **capstone 5.0.1** - Native disassembly backend for the x86-64 lifter.
 * **gmp 6.3.0** and **mpfr 4.2.1** - Arbitrary-precision integer and float math, so constant folding never silently loses bits on wide values.
-* **frozen 1.2.0** - Compile-time constant maps for opcode tables.
+* **frozen 1.2.0** - Compile-time constant maps.
 * **rapidjson cci.20230929** - Serialization and formatting profiles.
 * **hunspell 1.7.2** - Spell-aware heuristics for symbol and variable naming.
 
