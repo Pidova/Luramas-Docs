@@ -50,6 +50,7 @@ These flags are used for production and development builds to strip out unused a
 	* **LURAMAS_TARGET_VERSION_536** - Targets Lua version 5.3.6 bytecode
 * **LURAMAS_TARGET_LUAU** - Enables Luau lifters and disassemblers
 	* **LURAMAS_TARGET_VERSION_6** - Targets LuaU Version 6 bytecode.
+	* **LURAMAS_TARGET_VERSION_12** - Targets LuaU Version 12 bytecode.
 
 ### Other Flags
 
