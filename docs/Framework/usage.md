@@ -52,21 +52,43 @@ Note `ir::lift(closure)` here takes no **environment_flags**: the defaults are c
 ## Example Native Target: x86-64
 
 Native is more involved, because there is no `Proto` you need to describe the instruction stream yourself with the **profile** builder, disassemble it, then lift. 
-
+It utalizes [CPU-Tracer](https://github.com/Pidova/CPU-Tracer) to standardize and simplify the disassembly process.
+After you generate a graph with [CPU-Tracer](https://github.com/Pidova/CPU-Tracer) it runs it in [CFG-Tools](https://github.com/Pidova/CFG-Tools) to linearize it.
+ 
 ### Building the Instruction Stream
 
-Describe the bytes with a `profile::builder::manager`, using labels for control flow (full detail in **[Native Code](./Intermediate-Language/Lifting/native-code.md)**):
+Describe the bytes with a `cpu_tracer::blocks::builder::builder`, using labels for control flow (full detail in **[Native Code](./Intermediate-Language/Lifting/native-code.md)**):
 
 ```cpp
-luramas::profile::builder::manager data;
-data.emit({0x89, 0xF8});                                                 /* mov eax, edi   */
-data.emit({0x74, 0x18}, luramas::profile::inst_kind::jump_to, 1u, true); /* je Label 1     */
-data.emit_label(1u);                                                     /* Label 1        */
-data.emit({0xC3});                                                       /* ret            */
+ profile::externals::data<x86_reg> externals;                                                               /* Externals */
+ cpu_tracer::blocks::builder::builder<MAX_LEN, DEFAULT_MODE> b;                                             /* Bytecode builder */
+ boost::unordered_flat_set<luramas_address> external_addrs;                                                 /* External addresses */
+ boost::unordered_flat_map<luramas_address, boost::unordered_flat_set<luramas_address>> external_addresses; /* External addresses to compile {realpc -> external addr] */
 
-boost::unordered_flat_map<profile::module_id, profile::inst_result> mid_res;
-data.extract(mid_res);
-const auto details = profile::analyze::generate_details(mid_res);
+ /* Build assembly */
+ {
+       /* Build data */
+       b.emitd({0xB8, 0x05, 0x00, 0x00, 0x00});                                                                      /* mov eax, 0x5 */
+       b.emitd({0xBB, 0x05, 0x00, 0x00, 0x00});                                                                      /* mov ebx, 0x5 */
+       b.emitd({0x39, 0xD8});                                                                                        /* cmp eax, ebx */
+       const auto i_je_10_rpc = b.emitd({0x74, 0x02}, edges{{0x10, edges_k::next}}, JUMP).first;                     /* je label_10 */
+       const auto i_jmp_15_rpc = b.emitd({0xEB, 0x05}, edges{{0x15, edges_k::next}}, JUMP).first;                    /* jmp label_15 */
+       const auto label_10 = *b.emit_label(0x10);                                                                    /* label_10: */
+       const auto i_call_1e_rpc = b.emitd({0xE8, 0x09, 0x00, 0x00, 0x00}, edges{{0x1E, edges_k::next}}, CALL).first; /* call 1e */
+       const auto label_15 = *b.emit_label(0x15);                                                                    /* label_15: */
+       b.emitd({0xB8, 0x01, 0x00, 0x00, 0x00});                                                                      /* mov eax, 0x1 */
+       b.emitd({0x31, 0xDB});                                                                                        /* xor ebx, ebx */
+       b.emitd({0xCD, 0x80});                                                                                        /* int 0x80 */
+       const auto label_1E = *b.emit_label(0x1E);                                                                    /* label_1E: */
+       external_addresses[b.emitd({0xE8, 0x95, 0x99, 0x92, 0x02}, std::nullopt, CALL).first].insert(0x29299b8);      /* call 29299b8 [EXTERNAL] */
+       external_addrs.insert(0x29299b8);                                                                             /* External: 0x29299b8 */
+       const auto i_retn_1e_rpc = b.emitd({0xC3}, edges{{0x1E, edges_k::next}}, RETN).first;                         /* ret */
+       /* Connect Edges */
+       b.connect_edge<edges_k::next>(label_10, i_je_10_rpc);   /* je label_10 -> label_10 */
+       b.connect_edge<edges_k::next>(label_15, i_jmp_15_rpc);  /* jmp label_15 -> label_15 */
+       b.connect_edge<edges_k::next>(label_1E, i_call_1e_rpc); /* call 1e -> label_1E */
+       b.connect_edge<edges_k::next>(label_1E, i_retn_1e_rpc); /* ret -> label_1E */
+ }
 ```
 
 ### Disassemble and Lift to IL
@@ -75,8 +97,8 @@ Walk execution order, disassemble each instruction with Capstone, and lift the r
 
 ```cpp
 auto buffer = std::make_shared<il::ilang>();
-/* ... open Capstone, disassemble each inst in order_of_execution_organized into pinsts ... */
-il::X86::lifter::lift(pinsts, buffer, details, external, il::X86::lifter::bit_mode::x32);
+/* ... open Capstone, disassemble each inst in `luramas::profile::analyze::linearize` into pinsts ... */
+il::X86::lifter::lift(buffer, pinsts, hw_constants, externals, details);
 ```
 
 ### Configure and Run
@@ -102,17 +124,7 @@ The full x86 example sets a couple dozen flags and the page-call callbacks; see 
 
 ## CLI
 
-The example `main.cpp` wraps these behind a small CLI, so a build can be pointed at a file and a target:
-
-```
-Luramas -i <input> -t <target> [-b]
-```
-
-* `-i` is the input file
-* `-t` selects the target (`x86`, `lua-536`, etc) 
-* `-b` treats the input as bytecode rather than source. Which target actually compiles into the binary is decided at build time by the `LURAMAS_TARGET_*` flags - see **[Building](./building.md#macros)**.
-
-`-h` : Shows you supported architectures and describes usage.
+More information on CLI usage can be found: [here](../CLI/usage.md)
 
 ## Output Language
 

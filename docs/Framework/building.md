@@ -28,6 +28,8 @@ All third-party libraries are declared in **conanfile.txt** and fetched automati
 * **frozen 1.2.0** - Compile-time constant maps.
 * **rapidjson cci.20230929** - Serialization and formatting profiles.
 * **hunspell 1.7.2** - Spell-aware heuristics for symbol and variable naming.
+* **lz4 1.10.0** - File compression
+* **libprotobuf-mutator 1.5** - Fuzzing IR
 
 ## Building
 ```bash
@@ -45,12 +47,7 @@ These flags are used for production and development builds to strip out unused a
 
 ### Targets
 
-* **LURAMAS_TARGET_X86** - Enabled x86-64 assembly lifters and disassemblers
-* **LURAMAS_TARGET_LUA** - Enables Lua lifters and disassemblers
-	* **LURAMAS_TARGET_VERSION_536** - Targets Lua version 5.3.6 bytecode
-* **LURAMAS_TARGET_LUAU** - Enables Luau lifters and disassemblers
-	* **LURAMAS_TARGET_VERSION_6** - Targets LuaU Version 6 bytecode.
-	* **LURAMAS_TARGET_VERSION_12** - Targets LuaU Version 12 bytecode.
+See [supported-targets](../supported-targets) for macros and usage.
 
 ### Other Flags
 
