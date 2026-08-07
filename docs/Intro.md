@@ -29,7 +29,7 @@ flowchart LR
 A decompile runs through four stages, front to back:
 
 1. **Lifting Assembly** - a per-target disassembler decodes bytes into structured instructions, and a lifter turns each instruction into **IL** with no meaning attached to the original opcode names. See **[Disassemblers](./Framework/Intermediate-Language/Lifting/disassemblers)** and **[Writing a Lifter](./Framework/Intermediate-Language/Lifting/writing-lifters)**.
-2. **Intermediate Language (IL)** - the shared, architecture-independent instruction set. Every target uses it; see the **[IL Overview](./Framework/Intermediate-Language/overview)** and the **[Instruction Set Architecture](./Framework/Intermediate-Language/Instruction-Set-Architecture)**. The IL buffer is then bridged to a **[closure tree](./Framework/Intermediate-Language/closures)**.
+2. **Intermediate Language (IL)** - the shared, architecture-independent instruction set. Every target uses it; see the **[IL Overview](./Framework/Intermediate-Language/il-overview)** and the **[Instruction Set Architecture](./Framework/Intermediate-Language/isa)**. The IL buffer is then bridged to a **[closure tree](./Framework/Intermediate-Language/closures)**.
 3. **Intermediate Representation (IR)** - the closure is lifted into the `ir_stat` model, control flow is rebuilt, SSA is constructed, and a fixed schedule of passes simplifies everything. See **[Overview](./Framework/Intermediate-Representation/overview)**.
 4. **Code Generation** - the optimized IR is emitted into a real high-level language through a per-language emitter. See **[Emitters](./Framework/Code-Generation/emitters)**.
 

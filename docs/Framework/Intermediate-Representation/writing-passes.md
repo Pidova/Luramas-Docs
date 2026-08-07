@@ -84,7 +84,7 @@ if (tools::stat::branch::is_cond_goto_label(p, executable) && pm.safe(p)) {
 
 You rarely construct `ir_stat` / `ir_expr` by hand. The generate helpers do it correctly. In a pass you typically:
 
-1. Recognize a shape with an `is_*` predicate (`tools::stat::is_*`, `tools::exprs::is_*`).
+1. Recognize a pattern with an `is_*` predicate (`tools::stat::is_*`, `tools::exprs::is_*`).
 2. Build the replacement with `tools::stat::generate::*` / `tools::exprs::generate::*`.
 3. Swap it in via `pm.insert` + `pm.remove`, then `pm.mut`.
 

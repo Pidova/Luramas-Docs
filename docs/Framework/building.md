@@ -20,7 +20,7 @@ Luramas is C++23, built with CMake, and use Conan package manager.
 
 ## Dependencies
 
-All third-party libraries are declared in **conanfile.txt** and fetched automatically; only the VM sources under **3rdparty/** (Lua, Luau) are vendored.
+All third-party libraries are declared in **conanfile.txt** and fetched automatically.
 
 * **boost 1.86.0** - Containers everywhere. **unordered_flat_map** / **unordered_flat_set** are the default types across the framework.
 * **capstone 5.0.1** - Native disassembly backend for the x86-64 lifter.
@@ -30,6 +30,15 @@ All third-party libraries are declared in **conanfile.txt** and fetched automati
 * **hunspell 1.7.2** - Spell-aware heuristics for symbol and variable naming.
 * **lz4 1.10.0** - File compression
 * **libprotobuf-mutator 1.5** - Fuzzing IR
+
+### 3rd-party
+Only the sources under **3rdparty/** are vendored
+
+* **libs/boostpp** - [BoostPP](https://github.com/Pidova/BoostPP)
+* **libs/cfg_tools** - [CFG-Tools](https://github.com/Pidova/CFG-Tools)
+* **libs/cpu_tracer** - [CPU-Tracer](https://github.com/Pidova/CPU-Tracer)
+* **lua/Lua_5.3.6** - Lua version 5.3.xx
+* **luau/Luau-V6** - LuaU Bytecode version 6
 
 ## Building
 ```bash

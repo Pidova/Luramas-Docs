@@ -87,4 +87,4 @@ Luramas -test ./tests -all-tests
 ## See also
 
 * **[Building](../framework/building)** - Building Luramas
-* **[Program metadata](./program-metadata.md)** - What the decompiler records about an input program
+* **[Program metadata](./program-metadata.md)** - What the decompiler needs for an input program

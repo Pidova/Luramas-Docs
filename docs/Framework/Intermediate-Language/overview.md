@@ -14,7 +14,7 @@ This is what lets one optimizer and one set of emitters serve unrelated targets,
 
 This section has three parts. 
 This page is the concept: the buffer a lifter fills and the pieces around it. 
-The **[Instruction Set Architecture](./Instruction Set Architecture.md)** is the opcode reference. 
+The **[Instruction Set Architecture](./Instruction-Set-Architecture.md)** is the opcode reference. 
 **[Lifting Assembly](./Lifting/disassemblers.md)** is how you actually produce IL from a target.
 
 ## Ilang Buffer
